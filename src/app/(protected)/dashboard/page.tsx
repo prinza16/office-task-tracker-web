@@ -22,6 +22,7 @@ export default function DashboardPage() {
   const [users, setUsers] = useState<User[]>([]);
   const [user, setUser] = useState<any>(null);
   const [loading, setLoading] = useState(true);
+  const [mounted, setMounted] = useState(false);
 
   // --- Modal & Form State ---
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -36,8 +37,9 @@ export default function DashboardPage() {
   const isOwner = user?.role === 'OWNER';
   const canManage = user?.role === 'OWNER' || user?.role === 'SUPERVISOR';
 
-  // ฟังก์ชันโหลดข้อมูล (ดึง currentUser จาก state/localStorage)
   const fetchData = (currentUser = user) => {
+    if (typeof window === 'undefined') return;
+
     const currentUserIsOwner = currentUser?.role === 'OWNER';
     const currentUserCanManage = currentUser?.role === 'OWNER' || currentUser?.role === 'SUPERVISOR';
 
@@ -47,23 +49,27 @@ export default function DashboardPage() {
 
     Promise.all(requests)
       .then(([tasksRes, teamsRes, usersRes]) => {
-        setTasks(tasksRes.data);
+        setTasks(tasksRes.data || []);
         if (teamsRes) {
-          setTeams(teamsRes.data);
-          if (teamsRes.data.length === 1) setTeamId(teamsRes.data[0].id);
+          setTeams(teamsRes.data || []);
+          if (teamsRes.data?.length === 1) setTeamId(teamsRes.data[0].id);
         }
-        if (usersRes) setUsers(usersRes.data);
+        if (usersRes) setUsers(usersRes.data || []);
       })
       .catch((err) => console.error(err))
       .finally(() => setLoading(false));
   };
 
   useEffect(() => {
-    // ดึงข้อมูล User เมื่อแสดงผลบน Client
+    setMounted(true);
     const currentUser = getCurrentUser();
     setUser(currentUser);
     fetchData(currentUser);
   }, []);
+
+  if (!mounted) {
+    return <div className="p-6 text-gray-400">กำลังโหลด...</div>;
+  }
 
   const modalAssignableUsers = users.filter(
     (u) => u.team_id === teamId && u.role === 'EMPLOYEE'
@@ -88,14 +94,12 @@ export default function DashboardPage() {
         dueDate: dueDate || undefined,
       });
 
-      // Reset form & Close modal
       setTitle('');
       setDescription('');
       setAssignedToId('');
       setDueDate('');
       setIsModalOpen(false);
 
-      // โหลดข้อมูล Dashboard ใหม่
       fetchData();
     } catch (err: any) {
       setCreateError(err.response?.data?.message || 'สร้างงานไม่สำเร็จ');
