@@ -1,6 +1,5 @@
 'use client';
 
-export const dynamic = 'force-dynamic';
 import { useEffect, useState } from 'react';
 import { tasksApi, Task } from '@/lib/tasks';
 import { teamsApi, Team } from '@/lib/teams';
@@ -21,6 +20,7 @@ export default function DashboardPage() {
   const [tasks, setTasks] = useState<Task[]>([]);
   const [teams, setTeams] = useState<Team[]>([]);
   const [users, setUsers] = useState<User[]>([]);
+  const [user, setUser] = useState<any>(null);
   const [loading, setLoading] = useState(true);
 
   // --- Modal & Form State ---
@@ -33,14 +33,17 @@ export default function DashboardPage() {
   const [createError, setCreateError] = useState('');
   const [createLoading, setCreateLoading] = useState(false);
 
-  const user = getCurrentUser();
   const isOwner = user?.role === 'OWNER';
   const canManage = user?.role === 'OWNER' || user?.role === 'SUPERVISOR';
 
-  const fetchData = () => {
+  // ฟังก์ชันโหลดข้อมูล (ดึง currentUser จาก state/localStorage)
+  const fetchData = (currentUser = user) => {
+    const currentUserIsOwner = currentUser?.role === 'OWNER';
+    const currentUserCanManage = currentUser?.role === 'OWNER' || currentUser?.role === 'SUPERVISOR';
+
     const requests: [Promise<any>, Promise<any>?, Promise<any>?] = [tasksApi.list()];
-    if (isOwner) requests.push(teamsApi.list());
-    if (canManage) requests.push(usersApi.list());
+    if (currentUserIsOwner) requests.push(teamsApi.list());
+    if (currentUserCanManage) requests.push(usersApi.list());
 
     Promise.all(requests)
       .then(([tasksRes, teamsRes, usersRes]) => {
@@ -56,8 +59,11 @@ export default function DashboardPage() {
   };
 
   useEffect(() => {
-    fetchData();
-  }, [isOwner, canManage]);
+    // ดึงข้อมูล User เมื่อแสดงผลบน Client
+    const currentUser = getCurrentUser();
+    setUser(currentUser);
+    fetchData(currentUser);
+  }, []);
 
   const modalAssignableUsers = users.filter(
     (u) => u.team_id === teamId && u.role === 'EMPLOYEE'
@@ -89,7 +95,7 @@ export default function DashboardPage() {
       setDueDate('');
       setIsModalOpen(false);
 
-      // โหลดข้อมูล Dashboard ใหม่เพื่ออัปเดต Card ตัวเลขสถิติ
+      // โหลดข้อมูล Dashboard ใหม่
       fetchData();
     } catch (err: any) {
       setCreateError(err.response?.data?.message || 'สร้างงานไม่สำเร็จ');
