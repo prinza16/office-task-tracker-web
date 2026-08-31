@@ -1,5 +1,6 @@
 'use client';
 
+export const dynamic = 'force-dynamic';
 import { useEffect, useState } from 'react';
 import { tasksApi, Task } from '@/lib/tasks';
 import { teamsApi, Team } from '@/lib/teams';
