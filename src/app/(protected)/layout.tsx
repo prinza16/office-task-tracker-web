@@ -17,7 +17,7 @@ export default function ProtectedLayout({
   const [checked, setChecked] = useState(false);
   const [searchValue, setSearchValue] = useState('');
 
-  const currentUser = getCurrentUser();
+  const [currentUser, setCurrentUser] = useState<ReturnType<typeof getCurrentUser>>(null)
 
   useEffect(() => {
     const token = Cookies.get('access_token');
@@ -25,6 +25,7 @@ export default function ProtectedLayout({
       router.replace('/login');
       return;
     }
+    setCurrentUser(getCurrentUser());
     setChecked(true);
   }, [router]);
 
