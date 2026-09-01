@@ -5,6 +5,7 @@ import { useRouter, usePathname, useSearchParams } from 'next/navigation';
 import Link from 'next/link';
 import Cookies from 'js-cookie';
 import { logout, getCurrentUser } from '@/lib/auth';
+export const dynamic = 'force-dynamic';
 
 export default function ProtectedLayout({
   children,
