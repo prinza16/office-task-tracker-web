@@ -1,11 +1,11 @@
 'use client';
 
-import { useEffect, useState } from 'react';
-import { useRouter, usePathname, useSearchParams } from 'next/navigation';
+import { useEffect, useState, Suspense } from 'react';
+import { useRouter, usePathname } from 'next/navigation';
 import Link from 'next/link';
 import Cookies from 'js-cookie';
 import { logout, getCurrentUser } from '@/lib/auth';
-export const dynamic = 'force-dynamic';
+import SearchBox from './SearchBox';
 
 export default function ProtectedLayout({
   children,
@@ -14,11 +14,8 @@ export default function ProtectedLayout({
 }) {
   const router = useRouter();
   const pathname = usePathname();
-  const searchParams = useSearchParams();
   const [checked, setChecked] = useState(false);
-  const [searchValue, setSearchValue] = useState('');
-
-  const [currentUser, setCurrentUser] = useState<ReturnType<typeof getCurrentUser>>(null)
+  const [currentUser, setCurrentUser] = useState<ReturnType<typeof getCurrentUser>>(null);
 
   useEffect(() => {
     const token = Cookies.get('access_token');
@@ -29,24 +26,6 @@ export default function ProtectedLayout({
     setCurrentUser(getCurrentUser());
     setChecked(true);
   }, [router]);
-
-  // sync search input กับ query param ปัจจุบัน (เผื่อ user เข้ามาจาก URL ที่มี ?q= อยู่แล้ว)
-  useEffect(() => {
-    setSearchValue(searchParams.get('q') || '');
-  }, [searchParams]);
-
-  const handleSearchChange = (value: string) => {
-    setSearchValue(value);
-    const params = new URLSearchParams(searchParams.toString());
-    if (value) {
-      params.set('q', value);
-    } else {
-      params.delete('q');
-    }
-    // ถ้าไม่ได้อยู่หน้า /tasks ให้พาไปหน้านั้นพร้อมคำค้นหาเลย
-    const targetPath = pathname === '/tasks' ? pathname : '/tasks';
-    router.push(`${targetPath}?${params.toString()}`);
-  };
 
   if (!checked) return null;
 
@@ -99,13 +78,9 @@ export default function ProtectedLayout({
       <div className="flex-1 flex flex-col min-w-0 overflow-hidden">
         <header className="h-16 bg-white border-b border-gray-200 flex items-center justify-between px-6 shrink-0">
           <div className="w-96">
-            <input
-              type="text"
-              value={searchValue}
-              onChange={(e) => handleSearchChange(e.target.value)}
-              placeholder="ค้นหางาน..."
-              className="w-full pl-4 pr-4 py-2 text-sm bg-gray-50 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500"
-            />
+            <Suspense fallback={<div className="w-full h-9" />}>
+              <SearchBox />
+            </Suspense>
           </div>
           <div className="flex items-center space-x-4">
             <button className="p-2 text-gray-500 hover:text-gray-700">🔔</button>
