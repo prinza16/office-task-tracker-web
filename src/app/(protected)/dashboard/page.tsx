@@ -179,12 +179,15 @@ export default function DashboardPage() {
             )}
           </div>
 
-          <TaskMiniList
-            title="ความเคลื่อนไหวล่าสุด"
-            tasks={recentTasks}
-            emptyText="ยังไม่มีความเคลื่อนไหว"
-            showTime
-          />
+          {/* ซ่อนกล่องความเคลื่อนไหวล่าสุด ให้เห็นเฉพาะ Supervisor และ Owner เท่านั้น */}
+          {canManage && (
+            <TaskMiniList
+              title="ความเคลื่อนไหวล่าสุด"
+              tasks={recentTasks}
+              emptyText="ยังไม่มีความเคลื่อนไหว"
+              showTime
+            />
+          )}
         </>
       )}
 
