@@ -127,7 +127,7 @@ const TeamsPage = () => {
         <h1 className="text-2xl font-bold text-gray-800">จัดการทีม</h1>
         <button
           onClick={openCreateModal}
-          className="rounded bg-blue-600 px-4 py-2 text-sm text-white hover:bg-blue-700"
+          className="rounded bg-blue-600 px-4 py-2 text-sm text-white hover:bg-blue-700 cursor-pointer"
         >
           + สร้างทีมใหม่
         </button>
@@ -165,7 +165,7 @@ const TeamsPage = () => {
                   <td className="px-4 py-3">
                     <button
                       onClick={() => openEditModal(team)}
-                      className="text-xs text-blue-600 hover:underline"
+                      className="text-xs text-blue-600 hover:underline cursor-pointer"
                     >
                       แก้ไข
                     </button>
@@ -226,7 +226,7 @@ const TeamsPage = () => {
             <button
               type="submit"
               disabled={submitting}
-              className="rounded bg-blue-600 px-4 py-2 text-white hover:bg-blue-700 disabled:opacity-50"
+              className="rounded bg-blue-600 px-4 py-2 text-white hover:bg-blue-700 disabled:opacity-50 cursor-pointer"
             >
               {submitting
                 ? "กำลังบันทึก..."
@@ -237,7 +237,7 @@ const TeamsPage = () => {
             <button
               type="button"
               onClick={closeModal}
-              className="rounded bg-gray-200 px-4 py-2 text-gray-700 hover:bg-gray-300"
+              className="rounded bg-gray-200 px-4 py-2 text-gray-700 hover:bg-gray-300 cursor-pointer"
             >
               ยกเลิก
             </button>

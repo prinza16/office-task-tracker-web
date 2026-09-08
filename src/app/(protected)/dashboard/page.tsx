@@ -129,7 +129,7 @@ export default function DashboardPage() {
         {canManage && (
           <button
             onClick={() => setIsModalOpen(true)}
-            className="px-4 py-2 text-sm font-medium text-white bg-indigo-600 rounded-lg hover:bg-indigo-700 transition"
+            className="px-4 py-2 text-sm font-medium text-white bg-indigo-600 rounded-lg hover:bg-indigo-700 transition cursor-pointer"
           >
             + New Task
           </button>
@@ -272,14 +272,14 @@ export default function DashboardPage() {
             <button
               type="button"
               onClick={() => setIsModalOpen(false)}
-              className="rounded bg-gray-200 px-4 py-2 text-sm text-gray-700 hover:bg-gray-300"
+              className="rounded bg-gray-200 px-4 py-2 text-sm text-gray-700 hover:bg-gray-300 cursor-pointer"
             >
               ยกเลิก
             </button>
             <button
               type="submit"
               disabled={createLoading}
-              className="rounded bg-indigo-600 px-4 py-2 text-sm text-white hover:bg-indigo-700 disabled:opacity-50"
+              className="rounded bg-indigo-600 px-4 py-2 text-sm text-white hover:bg-indigo-700 disabled:opacity-50 cursor-pointer"
             >
               {createLoading ? 'กำลังสร้าง...' : 'สร้างงาน'}
             </button>

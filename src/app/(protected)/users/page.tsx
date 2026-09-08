@@ -133,7 +133,7 @@ const UsersPage = () => {
         <h1 className="text-2xl font-bold text-gray-800">จัดการผู้ใช้</h1>
         <button
           onClick={openCreateModal}
-          className="rounded bg-blue-600 px-4 py-2 text-sm text-white hover:bg-blue-700"
+          className="rounded bg-blue-600 px-4 py-2 text-sm text-white hover:bg-blue-700 cursor-pointer"
         >
           + สร้างบัญชีใหม่
         </button>
@@ -175,14 +175,14 @@ const UsersPage = () => {
                   <div className="flex gap-2">
                     <button
                       onClick={() => openEditModal(u)}
-                      className="text-xs text-blue-600 hover:underline"
+                      className="text-xs text-blue-600 hover:underline cursor-pointer"
                     >
                       แก้ไข
                     </button>
                     <button
                       onClick={() => handleToggleActive(u)}
                       className={`text-xs hover:underline ${
-                        u.is_active ? "text-red-600" : "text-green-600"
+                        u.is_active ? "text-red-600" : "text-green-600 cursor-pointer"
                       }`}
                     >
                       {u.is_active ? "ปิดใช้งาน" : "เปิดใช้งาน"}
@@ -299,7 +299,7 @@ const UsersPage = () => {
             <button
               type="submit"
               disabled={submitting}
-              className="rounded bg-blue-600 px-4 py-2 text-white hover:bg-blue-700 disabled:opacity-50"
+              className="rounded bg-blue-600 px-4 py-2 text-white hover:bg-blue-700 disabled:opacity-50 cursor-pointer"
             >
               {submitting
                 ? "กำลังบันทึก..."
@@ -310,7 +310,7 @@ const UsersPage = () => {
             <button
               type="button"
               onClick={closeModal}
-              className="rounded bg-gray-200 px-4 py-2 text-gray-700 hover:bg-gray-300"
+              className="rounded bg-gray-200 px-4 py-2 text-gray-700 hover:bg-gray-300 cursor-pointer"
             >
               ยกเลิก
             </button>

@@ -202,7 +202,7 @@ export default function TasksPage() {
             <button
               onClick={() => handleReassign(task.id)}
               disabled={isLoading}
-              className="rounded bg-blue-600 px-3 py-1 text-sm text-white hover:bg-blue-700 disabled:opacity-50"
+              className="rounded bg-blue-600 px-3 py-1 text-sm text-white hover:bg-blue-700 disabled:opacity-50 cursor-pointer"
             >
               ยืนยันมอบหมายใหม่
             </button>
@@ -211,7 +211,7 @@ export default function TasksPage() {
                 setReassigningId(null);
                 setNewAssigneeId('');
               }}
-              className="rounded bg-gray-200 px-3 py-1 text-sm text-gray-700 hover:bg-gray-300"
+              className="rounded bg-gray-200 px-3 py-1 text-sm text-gray-700 hover:bg-gray-300 cursor-pointer"
             >
               ยกเลิก
             </button>
@@ -234,7 +234,7 @@ export default function TasksPage() {
             <button
               onClick={() => handleCancel(task.id)}
               disabled={isLoading}
-              className="rounded bg-red-600 px-3 py-1 text-sm text-white hover:bg-red-700"
+              className="rounded bg-red-600 px-3 py-1 text-sm text-white hover:bg-red-700 cursor-pointer"
             >
               ยืนยันยกเลิกงาน
             </button>
@@ -243,7 +243,7 @@ export default function TasksPage() {
                 setCancelingId(null);
                 setCancelReason('');
               }}
-              className="rounded bg-gray-200 px-3 py-1 text-sm text-gray-700 hover:bg-gray-300"
+              className="rounded bg-gray-200 px-3 py-1 text-sm text-gray-700 hover:bg-gray-300 cursor-pointer"
             >
               กลับ
             </button>
@@ -259,7 +259,7 @@ export default function TasksPage() {
         <button
           onClick={() => handleAction(task.id, 'start')}
           disabled={isLoading}
-          className="rounded bg-blue-600 px-3 py-1 text-sm text-white hover:bg-blue-700 disabled:opacity-50"
+          className="rounded bg-blue-600 px-3 py-1 text-sm text-white hover:bg-blue-700 disabled:opacity-50 cursor-pointer"
         >
           เริ่มงาน
         </button>
@@ -269,7 +269,7 @@ export default function TasksPage() {
         <button
           onClick={() => handleAction(task.id, 'submit')}
           disabled={isLoading}
-          className="rounded bg-purple-600 px-3 py-1 text-sm text-white hover:bg-purple-700 disabled:opacity-50"
+          className="rounded bg-purple-600 px-3 py-1 text-sm text-white hover:bg-purple-700 disabled:opacity-50 cursor-pointer"
         >
           ส่งตรวจ
         </button>
@@ -292,7 +292,7 @@ export default function TasksPage() {
               <button
                 onClick={() => handleReject(task.id)}
                 disabled={isLoading}
-                className="rounded bg-red-600 px-3 py-1 text-sm text-white hover:bg-red-700"
+                className="rounded bg-red-600 px-3 py-1 text-sm text-white hover:bg-red-700 cursor-pointer"
               >
                 ยืนยันตีกลับ
               </button>
@@ -301,7 +301,7 @@ export default function TasksPage() {
                   setRejectingId(null);
                   setRejectReason('');
                 }}
-                className="rounded bg-gray-200 px-3 py-1 text-sm text-gray-700 hover:bg-gray-300"
+                className="rounded bg-gray-200 px-3 py-1 text-sm text-gray-700 hover:bg-gray-300 cursor-pointer"
               >
                 ยกเลิก
               </button>
@@ -314,14 +314,14 @@ export default function TasksPage() {
             <button
               onClick={() => handleAction(task.id, 'approve')}
               disabled={isLoading}
-              className="rounded bg-green-600 px-3 py-1 text-sm text-white hover:bg-green-700 disabled:opacity-50"
+              className="rounded bg-green-600 px-3 py-1 text-sm text-white hover:bg-green-700 disabled:opacity-50 cursor-pointer"
             >
               อนุมัติ
             </button>
             <button
               onClick={() => setRejectingId(task.id)}
               disabled={isLoading}
-              className="rounded bg-red-600 px-3 py-1 text-sm text-white hover:bg-red-700 disabled:opacity-50"
+              className="rounded bg-red-600 px-3 py-1 text-sm text-white hover:bg-red-700 disabled:opacity-50 cursor-pointer"
             >
               ตีกลับ
             </button>
@@ -335,14 +335,14 @@ export default function TasksPage() {
         <button
           onClick={() => setReassigningId(task.id)}
           disabled={isLoading}
-          className="rounded border border-gray-300 px-3 py-1 text-sm text-gray-700 hover:bg-gray-50 disabled:opacity-50"
+          className="rounded border border-gray-300 px-3 py-1 text-sm text-gray-700 hover:bg-gray-50 disabled:opacity-50 cursor-pointer"
         >
           มอบหมายใหม่
         </button>
         <button
           onClick={() => setCancelingId(task.id)}
           disabled={isLoading}
-          className="rounded border border-red-300 px-3 py-1 text-sm text-red-600 hover:bg-red-50 disabled:opacity-50"
+          className="rounded border border-red-300 px-3 py-1 text-sm text-red-600 hover:bg-red-50 disabled:opacity-50 cursor-pointer"
         >
           ยกเลิกงาน
         </button>
@@ -372,7 +372,7 @@ export default function TasksPage() {
         {canManage && (
           <button
             onClick={() => setIsCreateModalOpen(true)}
-            className="rounded bg-blue-600 px-4 py-2 text-sm text-white hover:bg-blue-700"
+            className="rounded bg-blue-600 px-4 py-2 text-sm text-white hover:bg-blue-700 cursor-pointer"
           >
             + สร้างงานใหม่
           </button>
@@ -501,14 +501,14 @@ export default function TasksPage() {
             <button
               type="button"
               onClick={() => setIsCreateModalOpen(false)}
-              className="rounded bg-gray-200 px-4 py-2 text-sm text-gray-700 hover:bg-gray-300"
+              className="rounded bg-gray-200 px-4 py-2 text-sm text-gray-700 hover:bg-gray-300 cursor-pointer"
             >
               ยกเลิก
             </button>
             <button
               type="submit"
               disabled={createLoading}
-              className="rounded bg-blue-600 px-4 py-2 text-sm text-white hover:bg-blue-700 disabled:opacity-50"
+              className="rounded bg-blue-600 px-4 py-2 text-sm text-white hover:bg-blue-700 disabled:opacity-50 cursor-pointer"
             >
               {createLoading ? 'กำลังสร้าง...' : 'สร้างงาน'}
             </button>
