@@ -5,6 +5,7 @@ import Link from 'next/link';
 import { Task } from '@/lib/tasks';
 import { statusConfig } from '@/lib/task-status';
 import { formatRelativeTime } from '@/lib/format-time';
+import { TaskTimerBar } from './TaskTimerBar'; // 1. Import Component เข้ามา
 
 export function TaskMiniList({
   title,
@@ -36,9 +37,18 @@ export function TaskMiniList({
                 className="flex items-center justify-between p-3 rounded-lg border border-gray-100 hover:bg-gray-50 transition"
               >
                 <div className="flex flex-col">
-                  <span className="text-sm font-medium text-gray-700">
-                    {task.title}
-                  </span>
+                  {/* 2. ปรับเป็น flex items-center gap-2 เพื่อวางเวลาต่อท้ายชื่องาน */}
+                  <div className="flex items-center gap-2">
+                    <span className="text-sm font-medium text-gray-700">
+                      {task.title}
+                    </span>
+                    {/* 🧩 แปะจิ๊กซอว์ TaskTimerBar ไว้ตรงนี้ */}
+                    <TaskTimerBar
+                      status={task.status}
+                      totalSeconds={(task as any).total_seconds || 0}
+                    />
+                  </div>
+                  
                   {showTime && (
                     <span className="text-xs text-gray-400 mt-0.5">
                       {formatRelativeTime(task.updated_at)}
